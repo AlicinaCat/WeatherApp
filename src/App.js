@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Weather from './components/Weather';
 import Titles from './components/Titles';
@@ -53,20 +54,43 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Titles />
-        <Form getWeather={this.getWeather} />
-        <Weather
-          temperature={this.state.temperature}
-          city={this.state.city}
-          country={this.state.country}
-          humidity={this.state.humidity}
-          description={this.state.description}
-          error={this.state.error}
-        />
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col title-container">
+                  <Titles />
+                </div>
 
+                <div className="col form-container">
+                  <Form getWeather={this.getWeather} />
+                  <Weather
+                    temperature={this.state.temperature}
+                    city={this.state.city}
+                    country={this.state.country}
+                    humidity={this.state.humidity}
+                    description={this.state.description}
+                    error={this.state.error}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
+
+// <Titles />
+// <Form getWeather={this.getWeather} />
+// <Weather
+//   temperature={this.state.temperature}
+//   city={this.state.city}
+//   country={this.state.country}
+//   humidity={this.state.humidity}
+//   description={this.state.description}
+//   error={this.state.error}
+// />
 
 export default App;
