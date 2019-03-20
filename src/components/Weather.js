@@ -35,7 +35,7 @@ export default class Weather extends Component {
             country: dataToday.sys.country,
             humidity: dataToday.main.humidity,
             description: dataToday.weather[0].description,
-            tomorrow: dataForecast.list[0].main.temp,
+            forecast: dataForecast.list,
             error: ""
           });
         } else {
@@ -46,6 +46,14 @@ export default class Weather extends Component {
       }
 
     render() {
+        var forecastList;
+        if(this.state.forecast) {
+            forecastList = this.state.forecast.map((forecast) => {
+                return (<li>{forecast.dt_txt}: {forecast.main.temp}</li>);
+            });
+        }
+        
+
         return (
             <div>
                 <Form getWeather={this.getWeather} />
@@ -54,6 +62,7 @@ export default class Weather extends Component {
                 { this.state.humidity && <p>Hum: {this.state.humidity}</p> }
                 { this.state.description && <p>Descr: {this.state.description}</p> }
                 { this.state.error && <p>{this.state.error}</p> }
+                { this.state.forecast && <ul>{forecastList}</ul> }
             </div>
         );
     }
