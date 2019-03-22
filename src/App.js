@@ -16,9 +16,9 @@ class App extends Component {
           <div className="main">
             <div className="container">
               <div className="row">
-                <div className="col title-container">
+                {/* <div className="col title-container">
                   <Titles />
-                </div>
+                </div> */}
 
                 <div className="col form-container">
                   <Weather />
