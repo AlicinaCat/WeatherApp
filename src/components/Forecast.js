@@ -21,7 +21,6 @@ export default class Forecast extends Component {
             forecast: dataForecast.list
         });
     }
-    
 
     render() {
         var forecastList;

@@ -22,6 +22,17 @@ export default class Weather extends Component {
     
       getWeather = async (e) => {
         e.preventDefault();
+
+        this.setState({
+            // icon: undefined,
+            temperature: undefined,
+            city: undefined,
+            country: undefined,
+            humidity: undefined,
+            description: undefined,
+            tomorrow: undefined,
+            error: undefined
+        });
     
         const city = e.target.elements.city.value;
         const country = e.target.elements.country.value;
