@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import Form from './Form';
-import Clear from './../pics/Clear.png';
-import Rain from './../pics/Rain.png';
-import Clouds from './../pics/Clouds.png';
-import Snow from './../pics/Snow.png';
 import Forecast from './Forecast';
 
 const API_KEY = '33b94a1d1da5daf4a1643aefc11f0c99';
 
 export default class Weather extends Component {
     state = {
-        // icon: undefined,
+        icon: undefined,
         temperature: undefined,
         city: undefined,
         country: undefined,
@@ -24,7 +20,7 @@ export default class Weather extends Component {
         e.preventDefault();
 
         this.setState({
-            // icon: undefined,
+            icon: undefined,
             temperature: undefined,
             city: undefined,
             country: undefined,
@@ -44,7 +40,7 @@ export default class Weather extends Component {
           console.log(dataToday);
 
           this.setState({
-            // icon: dataToday.weather[0].main,
+            icon: dataToday.weather[0].main,
             temperature: Math.round(dataToday.main.temp),
             city: dataToday.name,
             country: dataToday.sys.country,
@@ -64,6 +60,13 @@ export default class Weather extends Component {
             <div>
                 <Form getWeather={this.getWeather} />
                 {/* { this.state.icon && <img src={this.state.icon} alt={this.state.icon} />} */}
+                { this.state.city && this.state.country && this.state.icon==="Clear" && <img src={require('../pics/Clear.png')} alt="clear" /> }
+                { this.state.city && this.state.country && this.state.icon==="Clouds" && <img src={require('../pics/Clouds.png')} alt="clouds" /> }
+                { this.state.city && this.state.country && this.state.icon==="Rain" && <img src={require('../pics/Rain.png')} alt="rain" /> }
+                { this.state.city && this.state.country && this.state.icon==="Snow" && <img src={require('../pics/Snow.png')} alt="snow" /> }
+                { this.state.city && this.state.country && this.state.icon==="Mist" && <img src={require('../pics/Mist.png')} alt="mist" /> }
+          
+                
                 { this.state.city && this.state.country && <p>City: {this.state.city}, Country: {this.state.country}</p>}
                 { this.state.temperature && <p>Temp: {this.state.temperature}°</p>}
                 { this.state.description && <p>Descr: {this.state.description}</p> }
