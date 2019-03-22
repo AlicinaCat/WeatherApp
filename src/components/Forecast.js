@@ -32,7 +32,8 @@ export default class Forecast extends Component {
         }
 
         return ( 
-            <div> <button onClick={this.getForecast}>See detailed forecast</button>
+            <div>
+                <button onClick={this.getForecast}>See detailed forecast</button>
             { this.state.forecast && <ul>{forecastList}</ul> } </div>);
     }
 }

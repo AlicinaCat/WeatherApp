@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Weather from './components/Weather';
-import Titles from './components/Titles';
+import Titles from './components/Favorites';
 
 class App extends Component {
   // initial state
@@ -16,12 +16,12 @@ class App extends Component {
           <div className="main">
             <div className="container">
               <div className="row">
-                {/* <div className="col title-container">
-                  <Titles />
-                </div> */}
 
                 <div className="col form-container">
                   <Weather />
+                </div>
+                <div className="col form-container">
+                  <Titles />
                 </div>
               </div>
             </div>
