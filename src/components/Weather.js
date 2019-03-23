@@ -63,10 +63,11 @@ export default class Weather extends Component {
     else {
       let favorites = localStorage.getItem('favorites');
       favorites = (favorites) ? JSON.parse(favorites) : [];
-      favorites.push(this.state.city);
+      favorites.push(this.state.city + ":" + this.state.country);
       console.log(favorites);
       localStorage.setItem("favorites", JSON.stringify(favorites));
     }
+    
   }
 
   render() {
