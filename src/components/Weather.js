@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Form from './Form';
 import Forecast from './Forecast';
-import Favorites from './Favorites';
 
 const API_KEY = '33b94a1d1da5daf4a1643aefc11f0c99';
 
 export default class Weather extends Component {
   state = {
+    favorites: [],
     icon: undefined,
     temperature: undefined,
     city: undefined,
@@ -21,6 +21,7 @@ export default class Weather extends Component {
     e.preventDefault();
 
     this.setState({
+      favorites: [],
       icon: undefined,
       temperature: undefined,
       city: undefined,
@@ -41,6 +42,7 @@ export default class Weather extends Component {
       console.log(dataToday);
 
       this.setState({
+        favorites: [],
         icon: dataToday.weather[0].main,
         temperature: Math.round(dataToday.main.temp),
         city: dataToday.name,
@@ -59,6 +61,7 @@ export default class Weather extends Component {
     if (localStorage.getItem("favorites") === null) {
       let favorites = [];
       localStorage.setItem("favorites", JSON.stringify(favorites));
+      this.setState({state: this.state});
     }
     else {
       let favorites = localStorage.getItem('favorites');
@@ -66,13 +69,32 @@ export default class Weather extends Component {
       favorites.push(this.state.city + ":" + this.state.country);
       console.log(favorites);
       localStorage.setItem("favorites", JSON.stringify(favorites));
+      this.setState({state: this.state});
     }
     
   }
 
   render() {
 
+    var favorites = localStorage.getItem('favorites');
+    let array = JSON.parse(favorites);
+    console.log(array);
+    var favoriteList;
+    if (array != null) {
+        favoriteList = array.map((city) => {
+            let name = city.split(':');
+            return <li>{name[0]}, {name[1]}</li>
+        });
+    }
+
+
     return (
+      <div>
+      <div>
+      <h1>Favorites</h1>
+      <p>List of cities</p>
+      {this.state.favorites && <ul>{favoriteList}</ul>}
+    </div>
       <div>
         <Form getWeather={this.getWeather} />
         {/* { this.state.icon && <img src={this.state.icon} alt={this.state.icon} />} */}
@@ -90,6 +112,7 @@ export default class Weather extends Component {
         {this.state.error && <p>{this.state.error}</p>}
         {this.state.city && <Forecast city={this.state.city} country={this.state.country} />}
 
+      </div>
       </div>
     );
   }
