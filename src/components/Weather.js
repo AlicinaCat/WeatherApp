@@ -3,10 +3,12 @@ import Form from './Form';
 import Forecast from './Forecast';
 import { NavLink } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
+import { throws } from 'assert';
 
 const API_KEY = '33b94a1d1da5daf4a1643aefc11f0c99';
-
+const API_GEO_KEY = '4aeb5bc2e5fcaf1de601bd967abc4dbde6c27262e856f8b91350ff15';
 export default class Weather extends Component {
+
   state = {
     favorites: [],
     icon: undefined,
@@ -17,6 +19,38 @@ export default class Weather extends Component {
     description: undefined,
     tomorrow: undefined,
     error: undefined,
+  }
+
+  componentDidMount() {
+    this.geoLocation();
+  }
+
+
+  geoLocation = async () => {
+
+    const api_geolocation = await fetch(`https://api.ipdata.co/?api-key=${API_GEO_KEY}`);
+    console.log(api_geolocation);
+    const data = await api_geolocation.json();
+    console.log(data);
+    const city = data.city;
+    const country = data.country_name;
+    this.setState({
+      city: city,
+      country: country
+    });
+
+    const api_call_weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}&units=metric`);
+    const dataToday = await api_call_weather.json();
+
+    this.setState({
+      favorites: [],
+      icon: dataToday.weather[0].main,
+      temperature: Math.round(dataToday.main.temp),
+      city: dataToday.name,
+      country: dataToday.sys.country,
+      description: dataToday.weather[0].description,
+      error: "",
+    });
   }
 
   getWeather = async (e) => {
@@ -61,9 +95,6 @@ export default class Weather extends Component {
 
   getWeatherFavorite = async (e) => {
     e.preventDefault();
-
-    localStorage.setItem("city", "stockholm");
-    localStorage.setItem("country", "se");
 
     console.log(this.state);
 
@@ -126,6 +157,7 @@ export default class Weather extends Component {
     return (
       <div className="row">
         <div className="col form-container">
+
           <Form getWeather={this.getWeather} />
           {/* { this.state.icon && <img src={this.state.icon} alt={this.state.icon} />} */}
           {this.state.city && this.state.country && this.state.icon === "Clear" && <img src={require('../pics/Clear.png')} alt="clear" />}
@@ -152,10 +184,3 @@ export default class Weather extends Component {
     );
   }
 }
-
-
-
-
-
-// const api_call = await fetch('http://api.openweathermap.org/data/2.5/weather?q=Stockholm&APPID=33b94a1d1da5daf4a1643aefc11f0c99');
-
