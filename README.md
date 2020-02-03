@@ -66,4 +66,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
 # WeatherApp
+
+School exercise on React and APIs.
+
+The task was to create a React single page application that could retrieve real weather forecast data based on the position or by looking for a specific city.
