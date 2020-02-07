@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const API_KEY = '33b94a1d1da5daf4a1643aefc11f0c99';
+const API_KEY = '';
 
 export default class Forecast extends Component {
 
